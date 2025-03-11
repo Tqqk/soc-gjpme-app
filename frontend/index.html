@@ -1,12 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tailwind CSS v3 Setup</title>
     <link href="dist/style.css" rel="stylesheet">
+    <script defer src="passphrase-gen.js"></script>
+
 </head>
+
 <body>
-    <h1 class="text-4xl font-bold text-center text-blue-500">Hello, Tailwind CSS v3!</h1>
+
+    <div class="flex flex-col items-center justify-center max-w-md mx-auto">
+
+        <h2 class="text-4xl font-bold text-center text-blue-500">Generátor passphrase</h1>
+
+            <label class="mb-8">Počet slov:</label>
+            <input id="pocetSlov" type="number" value="4" min="2" max="10" class="border p-2 rounded w-full mb-4">
+        
+            <label class="block mb-2">Oddělovač slov:</label>
+            <select id="oddelovac" class="border p-2 rounded mb-4 w-full">
+
+                <option value="-">Pomlčka (-)</option>
+
+                <option value="_">Podtržítko (_)</option>
+
+                <option value="">Bez oddělovače</option>
+
+            </select>
+        
+            <button id="generovat" class="bg-blue-500 text-white px-4 py-2 rounded w-full">
+                Vygenerovat passphrase
+            </button>
+        
+            <div id="vyslednaPassphrase" class="mt-4 p-2 bg-gray-200 text-center rounded">
+                
+            </div>  
+    </div>
+
 </body>
+
 </html>
