@@ -18,11 +18,19 @@
             <h2 class="text-4xl font-bold text-center text-blue-500">Generátor passphrase</h1>
 
                 <label class="mb-2">Výběr jazyka:</label>
-                <select id="language" class="border p-2 rounded mb-4 w-full">
+                <fieldset class="border p-2 rounded mb-4 w-full">
 
-                    <option value="czech">Čeština</option>
-
-                </select>
+                    <div>
+                      <input type="checkbox" id="czech" name="czech" checked />
+                      <label for="czech">Čeština</label>
+                    </div>
+                  
+                    <div>
+                      <input type="checkbox" id="english" name="english" />
+                      <label for="english">Angličtina</label>
+                    </div>
+                    
+                </fieldset>
 
                 <label class="mb-8">Počet slov:</label>
                 <input id="numberOfWords" type="number" value="4" min="2" max="10" class="border p-2 rounded w-full mb-4">
