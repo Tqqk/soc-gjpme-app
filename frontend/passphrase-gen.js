@@ -65,18 +65,35 @@ function generatePassphrase() {
         console.log("random číslo " + randomIndex);
 
         randomWords[i] = combinedWordList[randomIndex];
+        
+        if (document.getElementById("capitalize").checked) {
+            randomWords[i] = randomWords[i].charAt(0).toUpperCase() + randomWords[i].slice(1);
+        }
     }
     
+    const randomNumber = Math.floor(Math.random() * randomWords.length);
+    console.log("random111 číslo " + randomNumber);
+
     let passphrase = "";
     for (let i = 0; i < randomWords.length; i++) {
 
         if (i < randomWords.length - 1) {
-            passphrase = passphrase + randomWords[i] + separator;
+            if (document.getElementById("add-number").checked && i == randomNumber) {
+                passphrase = passphrase + randomWords[i] + Math.floor(Math.random() * 10) + separator; 
+            }
+            else {
+                passphrase = passphrase + randomWords[i] + separator;
+            }
         }
         else {
-            passphrase = passphrase + randomWords[i];
+            if (document.getElementById("add-number").checked && i == randomNumber) {
+                passphrase = passphrase + randomWords[i] + Math.floor(Math.random() * 10);      
+            }
+            else {
+                passphrase = passphrase + randomWords[i];
+            }
         }
-        
+
     }
  
     document.getElementById("generatedPassphrase").textContent = passphrase;
