@@ -7,67 +7,73 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tailwind CSS v3 Setup</title>
         <link href="dist/style.css" rel="stylesheet">
-        <script defer src="passphrase-gen.js"></script>
+        <script defer src="script/passphrase-gen.js"></script>
 
     </head>
 
     <body>
 
+        <div>
+            <a href="/kviz.html">Kvíz</a>
+        </div>
+
         <div class="flex flex-col items-center justify-center max-w-md mx-auto">
 
             <h2 class="text-4xl font-bold text-center text-blue-500">Generátor passphrase</h1>
 
-                <label class="mb-2">Výběr jazyka:</label>
-                <fieldset class="border p-2 rounded mb-4 w-full">
+            <label class="mb-2">Výběr jazyka:</label>
+            <fieldset class="border p-2 rounded mb-4 w-full">
 
-                    <div>
-                      <input type="checkbox" id="czech" name="czech" checked />
-                      <label for="czech">Čeština</label>
+                <div>
+                    <input type="checkbox" id="czech" name="czech" checked />
+                    <label for="czech">Čeština</label>
+                </div>
+                
+                <div>
+                    <input type="checkbox" id="english" name="english" />
+                    <label for="english">Angličtina</label>
+                </div>
+                
+            </fieldset>
+
+            <label class="mb-8">Počet slov:</label>
+            <input id="numberOfWords" type="number" value="4" min="2" max="10" class="border p-2 rounded w-full mb-4">
+        
+            <label class="mb-2">Oddělovač slov:</label>
+            <select id="separator" class="border p-2 rounded mb-4 w-full">
+
+                <option value="-">Pomlčka (-)</option>
+                <option value="_">Podtržítko (_)</option>
+                <option value="">Bez oddělovače</option>
+
+            </select>
+
+            <label class="mb-2">Další možnosti:</label>
+            <fieldset class="border p-2 rounded mb-4 w-full flex flex-row gap-2 items">
+
+                <div>
+                    <input type="checkbox" id="capitalize" name="capitalize" />
+                    <label for="capitalize">Velká písmena</label>
+                </div>
+
+                <div>
+                    <input type="checkbox" id="add-number" name="add-number" />
+                    <label for="add-number">Přidat číslo</label>
                     </div>
-                  
-                    <div>
-                      <input type="checkbox" id="english" name="english" />
-                      <label for="english">Angličtina</label>
-                    </div>
-                    
-                </fieldset>
 
-                <label class="mb-8">Počet slov:</label>
-                <input id="numberOfWords" type="number" value="4" min="2" max="10" class="border p-2 rounded w-full mb-4">
-            
-                <label class="mb-2">Oddělovač slov:</label>
-                <select id="separator" class="border p-2 rounded mb-4 w-full">
+                
+            </fieldset>
 
-                    <option value="-">Pomlčka (-)</option>
-                    <option value="_">Podtržítko (_)</option>
-                    <option value="">Bez oddělovače</option>
-
-                </select>
-
-                <label class="mb-2">Další možnosti:</label>
-                <fieldset class="border p-2 rounded mb-4 w-full flex flex-row gap-2 items">
-
-                    <div>
-                      <input type="checkbox" id="capitalize" name="capitalize" />
-                      <label for="capitalize">Velká písmena</label>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" id="add-number" name="add-number" />
-                        <label for="add-number">Přidat číslo</label>
-                      </div>
-
-                    
-                </fieldset>
-
-                <button id="generate" class="bg-blue-500 text-white px-4 py-2 rounded w-full">
-                    Vygenerovat passphrase
-                </button>
-            
-                <div id="generatedPassphrase" class="mt-4 p-2 bg-gray-200 text-center rounded">
-                    
-                </div>  
+            <button id="generate" class="bg-blue-500 text-white px-4 py-2 rounded w-full">
+                Vygenerovat passphrase
+            </button>
+        
+            <div id="generatedPassphrase" class="mt-4 p-2 bg-gray-200 text-center rounded">
+                
+            </div>  
         </div>
+
+
 
     </body>
 

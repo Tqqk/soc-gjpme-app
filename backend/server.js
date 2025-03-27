@@ -60,29 +60,29 @@ app.get("/api/questions", (req, res) => {
     );
 });
 
-// api pro získání otázky podle order čísla
-app.get("/api/questions/:orderNumber", (req, res) => {
-    const orderNumber = req.params.orderNumber; 
+// // api pro získání otázky podle order čísla
+// app.get("/api/questions/:orderNumber", (req, res) => {
+//     const orderNumber = req.params.orderNumber; 
 
-    db.get(
-        "SELECT id, orderNumber, question, options, correctAnswer FROM questions WHERE orderNumber = ?",
-        [orderNumber],
-        (err, row) => {
-            if (err) {
-                res.status(500).json({ error: err.message }); 
-            } else if (!row) {
-                res.status(404).json({ error: "Otázka nenalezena." }); 
-            } else {
-                res.json({
-                    id: row.id,
-                    orderNumber: row.orderNumber,
-                    question: row.question,
-                    options: JSON.parse(row.options), 
-                });
-            }
-        }
-    );
-});
+//     db.get(
+//         "SELECT id, orderNumber, question, options, correctAnswer FROM questions WHERE orderNumber = ?",
+//         [orderNumber],
+//         (err, row) => {
+//             if (err) {
+//                 res.status(500).json({ error: err.message }); 
+//             } else if (!row) {
+//                 res.status(404).json({ error: "Otázka nenalezena." }); 
+//             } else {
+//                 res.json({
+//                     id: row.id,
+//                     orderNumber: row.orderNumber,
+//                     question: row.question,
+//                     options: JSON.parse(row.options), 
+//                 });
+//             }
+//         }
+//     );
+// });
 
 // api pro odeslání odpovědí
 app.post("/api/submit", (req, res) => {

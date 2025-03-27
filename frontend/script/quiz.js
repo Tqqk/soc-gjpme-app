@@ -1,0 +1,156 @@
+const questionContainer = document.getElementById("question-container");
+const resultContainer = document.getElementById("result-container");
+
+let questions = [];
+let currentQuestionIndex = 0;
+let score = 0;
+
+// získání otázek z api
+async function fetchQuestions() {
+  try {
+    const response = await fetch("http://localhost:3000/api/questions");
+    const data = await response.json();
+
+    questions = data.sort((a, b) => a.orderNumber - b.orderNumber);
+    displayCurrentQuestion();
+  } catch (error) {
+    resultContainer.textContent = "Chyba při načítání otázek z api";
+  }
+}
+
+// ukaž otázku
+function displayCurrentQuestion() {
+
+  questionContainer.innerHTML = "";
+  resultContainer.innerHTML = "";
+
+  // poslední otázka = konec kvízu
+  if (currentQuestionIndex >= questions.length) {
+    showFinalScore();
+    return;
+  }
+
+  const question = questions[currentQuestionIndex];
+
+  // vytvoření div pro otázku
+  const questionDiv = document.createElement("div");
+  questionDiv.classList.add("bg-white", "p-6");
+
+  // text otázky
+  const questionText = document.createElement("p");
+  questionText.classList.add("text-xl", "font-medium", "mb-4");
+  questionText.textContent = question.question;
+  questionDiv.appendChild(questionText);
+
+  // vytvoření div pro možnosti odpovědí
+  const optionsContainer = document.createElement("div");
+  optionsContainer.classList.add("space-y-2");
+
+  // vytvoření tlačítka pro každou odpověď  
+  question.options.forEach((option) => {
+    const button = document.createElement("button");
+    button.classList.add(
+      "w-full",
+      "py-2",
+      "px-4",
+      "bg-indigo-600",
+      "text-white",
+      "rounded-lg",
+      "hover:bg-indigo-700",
+    );
+    button.textContent = option;
+    button.onclick = () => handleAnswer(question.id, option);
+    optionsContainer.appendChild(button);
+  });
+
+  questionDiv.appendChild(optionsContainer);
+  questionContainer.appendChild(questionDiv);
+}
+
+// 
+async function handleAnswer(questionId, answer) {
+  try {
+
+    // vypnutí tlačítek pro zvolení odpovědi
+    Array.from(document.querySelectorAll("button")).forEach(btn => btn.disabled = true);
+
+    const response = await fetch("http://localhost:3000/api/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ questionId, answer }),
+    });
+    const result = await response.json();
+
+    if (result.correct) {
+      score++;
+      resultContainer.textContent = "Správná odpověď";
+      resultContainer.className = "text-green-500 text-center text-xl mb-4";
+    } else {
+        resultContainer.textContent = "Špatná odpověď";
+        resultContainer.className = "text-red-500 text-center text-xl mb-4";
+    }
+  } catch (error) {
+    resultContainer.textContent = "Chyba při odesílání odpovědi";
+  }
+  showNextButton();
+}
+
+// tlačítko na další otázku
+function showNextButton() {
+  const nextButton = document.createElement("button");
+  nextButton.textContent = "Další otázka";
+  nextButton.classList.add(
+    "mt-4",
+    "py-2",
+    "px-4",
+    "mx-4",
+    "bg-blue-600",
+    "text-black",
+    "rounded-lg",
+    "hover:bg-blue-700",
+  );
+  nextButton.onclick = () => {
+    currentQuestionIndex++;
+    displayCurrentQuestion();
+  };
+  resultContainer.appendChild(nextButton);
+}
+
+// finální skóre
+function showFinalScore() {
+  questionContainer.innerHTML = "";
+  resultContainer.innerHTML = "";
+
+  const scoreDiv = document.createElement("div");
+  scoreDiv.classList.add("bg-white", "p-6", "rounded-lg", "shadow-md", "text-center");
+
+  const scoreText = document.createElement("p");
+  scoreText.classList.add("text-2xl", "font-semibold", "mb-4");
+  scoreText.textContent = `Skóre: ${score} z ${questions.length}`;
+
+  const restartButton = document.createElement("button");
+  restartButton.textContent = "Restartovat kvíz";
+  restartButton.classList.add(
+    "py-2",
+    "px-4",
+    "bg-green-600",
+    "text-black",
+    "rounded-lg",
+    "hover:bg-green-700",
+  );
+  restartButton.onclick = restartQuiz;
+
+  scoreDiv.appendChild(scoreText);
+  scoreDiv.appendChild(restartButton);
+  questionContainer.appendChild(scoreDiv);
+}
+
+// restart kvízu
+function restartQuiz() {
+  currentQuestionIndex = 0;
+  score = 0;
+  fetchQuestions();
+}
+
+// zavolání funkce pro získání otázek
+fetchQuestions();
