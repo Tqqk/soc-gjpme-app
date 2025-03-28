@@ -1,75 +1,71 @@
-// knihovny
-const sqlite3 = require("sqlite3").verbose();
+// knihovny 
+require("dotenv").config();
+const { Pool } = require("pg");
 
-// nová databáze
-const db = new sqlite3.Database("./questions.db");
+// připojení k databázi
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+});
 
 // otázky
 const questions = [
     {
-        order: 1,
+        orderNumber: 1,
         question: "Otázka 1",
-        options: ["Odpověd 1", "Odpověd 2", "Odpověd 3", "Odpověd 4"],
+        options: JSON.stringify(["Odpověd 1", "Odpověd 2", "Odpověd 3", "Odpověd 4"]),
         correctAnswer: "Odpověd 1",
     },
     {
-        order: 2, 
+        orderNumber: 2, 
         question: "Otázka 2",
-        options: ["Odpověd 1", "Odpověd 2", "Odpověd 3", "Odpověd 4"],
+        options: JSON.stringify(["Odpověd 1", "Odpověd 2", "Odpověd 3", "Odpověd 4"]),
         correctAnswer: "Odpověd 2",
     },
+ 
 ];
 
-// vytvoření databáze
-db.serialize(() => {
+// vytvoření table a vložení otázek
+async function seedDatabase() {
+    try {
+        // smaž celou table s otazkami pokud již existuje
+        await pool.query("DROP TABLE IF EXISTS questions");
 
-    // smaž celou tabulku s otazkami pokud již existuje
-    db.run("DROP TABLE IF EXISTS questions"); 
-
-    // vytvoř tabulku 
-    db.run(
-        `CREATE TABLE IF NOT EXISTS questions (
-            id INTEGER PRIMARY KEY AUTOINCREMENT, -- Primární klíč s automatickým inkrementem
-            orderNumber INTEGER NOT NULL, -- Pořadové číslo otázky
-            question TEXT NOT NULL, -- Text otázky
-            options TEXT NOT NULL,  -- Možnosti odpovědí uložené jako JSON
-            correctAnswer TEXT NOT NULL -- Správná odpověď
-        )`,
-        (err) => {
-            if (err) {
-                console.error("Error creating table:", err.message);
-            } else {
-                console.log("Table created (if it didn't already exist).");
+        // vytvoř table
+        await pool.query(`
+            CREATE TABLE questions (
+                id SERIAL PRIMARY KEY,
+                orderNumber INTEGER NOT NULL,
+                question TEXT NOT NULL,
+                options JSONB NOT NULL,
+                correctAnswer TEXT NOT NULL
+            )`,
+            (err) => {
+                if (err) {
+                    console.error("Problém s vytvořením table", err.message);
+                } else {
+                    console.log("Table vytvořena");
+                }
             }
-        }
     );
 
-    // smaž data z tabulky
-    db.run("DELETE FROM questions", (err) => {
-        if (err) {
-            console.error("Error deleting existing data:", err.message);
-        } else {
-            console.log("Old data cleared.");
+        // vložit otázky do table
+        for (const question of questions) {
+            await pool.query(
+                "INSERT INTO questions (orderNumber, question, options, correctAnswer) VALUES ($1, $2, $3, $4)",
+                [question.orderNumber, question.question, question.options, question.correctAnswer]
+            );
         }
-    });
 
-    // vložit otázky do tabulky
-    const stmt = db.prepare("INSERT INTO questions (orderNumber, question, options, correctAnswer) VALUES (?, ?, ?, ?)");
-    questions.forEach((q) => {
+        console.log("Otázky vloženy do databáze");
 
-        stmt.run(q.order, q.question, JSON.stringify(q.options), q.correctAnswer, (err) => {
+    } catch (error) {
 
-            if (err) {
-                console.error("Error inserting data:", err.message); 
-            }
+        console.error("Problém s vložením otázek do databáze", error);
 
-        });
+    } finally {
 
-    });
+        pool.end();
+    }
+}
 
-    // dokončení
-    stmt.finalize(() => {
-        console.log("Questions added to the database."); 
-        db.close();
-    });
-});
+seedDatabase();
