@@ -597,8 +597,8 @@ video {
   margin-top: 0.05rem;
 }
 
-.mt-\[14svh\] {
-  margin-top: 14svh;
+.mt-\[10svh\] {
+  margin-top: 10svh;
 }
 
 .flex {
@@ -623,10 +623,6 @@ video {
 
 .max-w-lg {
   max-width: 32rem;
-}
-
-.max-w-md {
-  max-width: 28rem;
 }
 
 .list-disc {
@@ -755,11 +751,6 @@ video {
   line-height: 2rem;
 }
 
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-}
-
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
@@ -813,11 +804,6 @@ video {
 .text-green-900 {
   --tw-text-opacity: 1;
   color: rgb(20 83 45 / var(--tw-text-opacity, 1));
-}
-
-.text-indigo-600 {
-  --tw-text-opacity: 1;
-  color: rgb(79 70 229 / var(--tw-text-opacity, 1));
 }
 
 .text-red-900 {
