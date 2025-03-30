@@ -96,6 +96,8 @@ function generatePassphrase() {
 
     }
  
-    document.getElementById("generatedPassphrase").textContent = passphrase;
-    
+    const passphraseElement = document.getElementById("generatedPassphrase");
+    passphraseElement.textContent = passphrase;
+    passphraseElement.classList.add("bg-gray-200");
+
 }
