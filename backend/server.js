@@ -8,8 +8,10 @@ const cors = require("cors");
 const app = express();
 const PORT = 3000;
 
+const allowedOrigins = ["https://soc-gjpme-app-4acp.onrender.com"];
+
 app.use(cors({
-    origin: "http://127.0.0.1:5500",  
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"]
 }));
