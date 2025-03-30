@@ -21,7 +21,12 @@ const questions = [
         options: JSON.stringify(["Odpověd 1", "Odpověd 2", "Odpověd 3", "Odpověd 4"]),
         correctAnswer: "Odpověd 2",
     },
- 
+    {
+        orderNumber: 3, 
+        question: "Toto je velmi dlouhá otázka, která má za cíl otestovat, jak dobře systém zvládá zpracování delších textů. Otázka může obsahovat různé detaily, jako například popis situace, kontext nebo další informace, které jsou důležité pro pochopení otázky. Jaký je správný postup v této situaci?",
+        options: JSON.stringify(["Možnost 1: Udělat první krok", "Možnost 2: Udělat druhý krok", "Možnost 3: Udělat třetí krok", "Možnost 4: Udělat čtvrtý krok"]),
+        correctAnswer: "Možnost 2: Udělat druhý krok",
+    },
 ];
 
 // vytvoření table a vložení otázek

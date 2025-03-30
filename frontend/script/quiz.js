@@ -38,7 +38,6 @@ function displayCurrentQuestion() {
     "p-6", 
     "rounded", 
     "bg-white", 
-    "rounded-lg", 
     "shadow-md",
   );
 
