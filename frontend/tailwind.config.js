@@ -1,8 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./script/quiz.js",
-    "./script/passphrase-gen.js",
+    "./public/js/quiz.js",
+    "./public/js/passphrase-gen.js",
     "./*.html",
   ],
   theme: {
