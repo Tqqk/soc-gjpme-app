@@ -12,6 +12,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+
     </head>
 
     <body class="bg-black-white text-black text-base font-robotoMono font-medium accent-black">
@@ -25,8 +26,8 @@
                 
                 <ul class="flex items-center gap-4 ml-6 font-normal">
                     <li><a href="/" class="text-gray-500 hover:text-black">info</a></li>
-                    <li><a href="/generator.html" class="text-gray-500 hover:text-black">generátor</a></li>
-                    <li><a href="/kviz.html" class=" text-black hover:text-black">kvíz</a></li>   
+                    <li><a href="/generator" class="text-gray-500 hover:text-black">generátor</a></li>
+                    <li><a href="/kviz" class=" text-black hover:text-black">kvíz</a></li>   
                 </ul>
                 
             </nav>
@@ -47,14 +48,44 @@
                     </div>
                 </div>
 
-                
+                <div id="result-container" class="text-center w-full flex flex-row justify-center items-center my-4 gap-4"></div>
 
+                <div id="alert" class="p-6 rounded bg-black text-white bg-opacity-90 shadow-md w-full">
+                    <details>
+                        <summary class="underline cursor-pointer">Upozornění</summary>
+                        <p class="text-sm font-light my-4">Kvůli omezením backendu může načítání kvízu trvat až 60 sekund.</p>
+                        <p class="text-sm font-light my-4">Tento kvíz neuchovává žádné odpovědi ani osobní údaje.</p>
 
-                <div id="result-container" class="text-center w-full flex flex-row justify-center items-center mt-4 gap-4"></div>
+                        <button id="hide-alert" class="hover:bg-gray-400 text-black bg-gray-50 hover:border-gray-400 border-gray-50 border-2 px-2 py-1 rounded text-sm">Skrýt upozornění</button>
+                        
+                    </details>
+                </div>
+    
+            </div>
+
             
+
+        </div>
+
+        <div class="bg-black bg-opacity-90  min-h-[10vh] text-white text-sm">
+
+            <div class="flex flex-col justify-between gap-8 mx-8 md:mx-auto py-8 max-w-lg">
+
+                <div>
+                    <p class="underline">Zdrojový kód:</p>
+                    <a href="https://github.com/Tqqk/soc-gjpme-app" target="_blank" class="hover:underline font-light">github.com/Tqqk/soc-gjpme-app</a>
+                </div>
+                
+                <div>
+                    <p class="underline">Použité slovníky:</p>
+                    <a href="https://github.com/Tqqk/soc-gjpme-app/blob/main/frontend/public/wordlists/czech.txt" target="_blank" class="hover:underline font-light">czech.txt</a> <br>
+                    <a href="https://github.com/Tqqk/soc-gjpme-app/blob/main/frontend/public/wordlists/english.txt" target="_blank" class="hover:underline font-light">english.txt</a>
+                </div>
+
             </div>
 
         </div>
+
     </body>
 
 </html>

@@ -228,3 +228,13 @@ function restartQuiz() {
 
 // zavolání funkce pro získání otázek
 fetchQuestions();
+
+// skrytí upozornění
+document.addEventListener("DOMContentLoaded", () => {
+  const alertDiv = document.getElementById("alert");
+  const hideAlertButton = document.getElementById("hide-alert");
+
+  hideAlertButton.addEventListener("click", () => {
+      alertDiv.classList.add("hidden");
+  });
+});
