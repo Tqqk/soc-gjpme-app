@@ -8,8 +8,15 @@ const cors = require("cors");
 const app = express();
 const PORT = 3000;
 
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim());
 app.use(cors({
-    origin: process.env.ALLOWED_ORIGIN.split(','),
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"]
 }));
