@@ -9,7 +9,7 @@ const app = express();
 const PORT = 3000;
 
 app.use(cors({
-    origin: process.env.ALLOWED_ORIGIN,
+    origin: process.env.ALLOWED_ORIGIN.split(','),
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"]
 }));
