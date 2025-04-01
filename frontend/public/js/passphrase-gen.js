@@ -85,7 +85,6 @@ function generatePassphrase() {
     let combinedWordList = [];
     if (useCzech == true) combinedWordList = combinedWordList.concat(wordLists.czech);
     if (useEnglish == true) combinedWordList = combinedWordList.concat(wordLists.english);
-    console.log(combinedWordList);
     
     const numberOfWords = validateNumberOfWords(document.getElementById("numberOfWords"));
     const separator = document.getElementById("separator").value;
@@ -93,7 +92,6 @@ function generatePassphrase() {
     const randomWords = [];
     for (let i = 0; i < numberOfWords; i++) {
         const randomIndex = Math.floor(Math.random() * combinedWordList.length);
-        console.log("random číslo " + randomIndex);
 
         randomWords[i] = combinedWordList[randomIndex];
         
@@ -103,7 +101,6 @@ function generatePassphrase() {
     }
     
     const randomNumber = Math.floor(Math.random() * randomWords.length);
-    console.log("random111 číslo " + randomNumber);
 
     let passphrase = "";
     for (let i = 0; i < randomWords.length; i++) {
