@@ -8,6 +8,7 @@ const cors = require("cors");
 const app = express();
 const PORT = 3000;
 
+// CORS nastavení
 const allowedOrigins = process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim());
 app.use(cors({
     origin: (origin, callback) => {
@@ -30,7 +31,7 @@ const pool = new Pool({
 
 // api pro získání všech otázek
 app.get("/api/questions", (req, res) => {
-    pool.query("SELECT id, orderNumber, question, options FROM questions ORDER BY orderNumber", 
+    pool.query("SELECT id, orderNumber, question, answers FROM questions ORDER BY orderNumber", 
         (err, result) => {
             if (err) {
                 res.status(500).json({ error: err.message });
@@ -39,7 +40,7 @@ app.get("/api/questions", (req, res) => {
                     id: row.id,
                     orderNumber: row.ordernumber,
                     question: row.question,
-                    options: row.options,
+                    answers: row.answers,
                 }));
                 res.json(questions);
             }
@@ -71,6 +72,9 @@ app.post("/api/submit", (req, res) => {
     );
 });
 
+// health check endpoint
+app.get('/health', (req, res) => res.sendStatus(200));
+
 // zapnout server
 app.listen(PORT, () => {
     console.log(`Server běží na http://localhost:${PORT}`);
@@ -83,3 +87,5 @@ app.listen(PORT, () => {
         }, 10 * 60 * 1000); // každých 10 minut
     }
 });
+
+
