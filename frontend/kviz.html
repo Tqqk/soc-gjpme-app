@@ -37,33 +37,34 @@
                 <h1 class="text-[2.10rem] leading-10 font-bold text-center mb-4 pb-[0.4rem] mx-4">Kvíz o&nbsp;bezpečnosti hesel</h1>
 
                 <div id="question-container" class="w-full">
-                    <div class="p-6 rounded bg-white shadow-md">
-                        <p class="text-xl font-medium mb-4">&nbsp;</p>
-                        <div class="flex flex-col gap-3 text-black">
-                            <button class="w-full py-3 px-4 border-2 border-black rounded hover:bg-black hover:text-white">&nbsp;</button>
-                            <button class="w-full py-3 px-4 border-2 border-black rounded hover:bg-black hover:text-white">&nbsp;</button>
-                            <button class="w-full py-3 px-4 border-2 border-black rounded hover:bg-black hover:text-white">&nbsp;</button>
-                            <button class="w-full py-3 px-4 border-2 border-black rounded hover:bg-black hover:text-white">&nbsp;</button>
+                    <div class="p-6 rounded bg-white shadow-md animate-pulse">
+                        
+                        <div class="h-5 w-2/3 bg-gray-200 rounded mb-6"></div>
+                        <div class="flex flex-col gap-3">
+                            <div class="h-11 bg-gray-200 rounded"></div>
+                            <div class="h-11 bg-gray-200 rounded"></div>
+                            <div class="h-11 bg-gray-200 rounded"></div>
+                            <div class="h-11 bg-gray-200 rounded"></div>
                         </div>
+                        <div class="h-3 w-1/4 bg-gray-200 rounded mt-6"></div>
+
                     </div>
                 </div>
 
                 <div id="result-container" class="text-center w-full flex flex-row justify-center items-center my-4 gap-4"></div>
 
                 <div id="alert" class="p-6 rounded bg-black text-white bg-opacity-90 shadow-md w-full">
-                    <details>
-                        <summary class="underline cursor-pointer">Upozornění</summary>
-                        <p class="text-sm font-light my-4">Kvůli omezením backendu může načítání kvízu trvat až 60 sekund.</p>
+                    <div>
+                        <h3>Upozornění</h3>
+                        <p class="text-sm font-light my-4">Kvůli omezení backendu se může kvíz načítat až 60 sekund.</p>
                         <p class="text-sm font-light my-4">Tento kvíz neuchovává žádné odpovědi ani osobní údaje.</p>
 
                         <button id="hide-alert" class="hover:bg-gray-400 text-black bg-gray-50 hover:border-gray-400 border-gray-50 border-2 px-2 py-1 rounded text-sm">Skrýt upozornění</button>
                         
-                    </details>
+                    </div>
                 </div>
     
             </div>
-
-            
 
         </div>
 
