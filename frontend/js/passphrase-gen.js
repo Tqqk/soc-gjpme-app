@@ -64,9 +64,23 @@ function validateNumberOfWords(input) {
     return value;
 }
 
+// kryptograficky bezpecne nahodne cislo v rozsahu <0, maxExclusive)
+function getSecureRandomInt(maxExclusive) {
+    const random = new Uint32Array(1);
+    const limit = Math.floor(0x100000000 / maxExclusive) * maxExclusive;
+
+    let value;
+    do {
+        crypto.getRandomValues(random);
+        value = random[0];
+    } while (value >= limit);
+
+    return value % maxExclusive;
+}
+
 // získání náhodného slova z kombinovaného wordlistu 
 function getRandomWord(combinedWordList, capitalize) { 
-    const randomIndex = Math.floor(Math.random() * combinedWordList.length);
+    const randomIndex = getSecureRandomInt(combinedWordList.length);
     let randomWord = combinedWordList[randomIndex];
 
     if (capitalize) randomWord = randomWord.charAt(0).toUpperCase() + randomWord.slice(1);
@@ -89,7 +103,7 @@ function generatePassphrase() {
         randomWords.push(getRandomWord(combinedWordList, capitalize));
     }
     
-    const addNumberPosition = Math.floor(Math.random() * randomWords.length);
+    const addNumberPosition = getSecureRandomInt(randomWords.length);
     const addNumber = document.getElementById("add-number").checked;
     const separator = document.getElementById("separator").value;
 
@@ -99,7 +113,7 @@ function generatePassphrase() {
         passphrase = passphrase + randomWords[i];
 
         if (addNumber && i === addNumberPosition) {
-            passphrase = passphrase + Math.floor(Math.random() * 10);
+            passphrase = passphrase + getSecureRandomInt(10);
         }
 
         if (i < randomWords.length - 1) {
